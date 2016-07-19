@@ -25,6 +25,7 @@ namespace 掛率確認システム
         public float? price { get; set; }
 
         [StringLength(30)]
+        [Key]
         public string importcode { get; set; }
 
         [StringLength(60)]
@@ -32,5 +33,8 @@ namespace 掛率確認システム
 
         [StringLength(10)]
         public string importnonyuritu { get; set; }
+
+        public virtual ICollection<markuptable> markuptables { get; set; }
+
     }
 }

@@ -11,7 +11,9 @@ namespace 掛率確認システム
     {
         public int id { get; set; }
 
+        
         [StringLength(10)]
+        [Key]
         public string customercode { get; set; }
 
         [StringLength(50)]
@@ -34,5 +36,7 @@ namespace 掛率確認システム
 
         [StringLength(20)]
         public string salesname { get; set; }
+
+        public virtual ICollection<markuptable> markuptables { get; set; }
     }
 }
