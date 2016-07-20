@@ -13,13 +13,13 @@ namespace 掛率確認システム
 
         
         [StringLength(10)]
-        [Key]
         public string customercode { get; set; }
 
         [StringLength(50)]
         public string customername { get; set; }
 
         [StringLength(10)]
+        [Key]
         public string customergroup { get; set; }
 
         [StringLength(50)]

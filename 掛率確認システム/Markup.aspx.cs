@@ -13,16 +13,42 @@ namespace 掛率確認システム
         {
             string content = "";
 
-            using (var context = new markupmodel())
-            {
-                var lists = context.markuptables;
+            var context = new markupmodel();
 
-                foreach(var list in lists)
+            var querys = from x in context.markuptables
+                         join y in context.customertables on x.customergroup equals y.customergroup
+                         join z in context.goodstables on x.importcode equals z.importcode
+                         where x.importcode == "004" && x.customergroup == "19710"
+                         orderby x.customergroup
+                         select new tablejoin()
+                         {
+
+                             id = x.id,
+                             customergroup = x.customergroup,
+                             customergroupname = y.customergroupname,
+                             customercode = y.customercode,
+                             customername = y.customername,
+                             importcode = x.importcode,
+                             importname = z.importname,
+                             productcode = z.productcode,
+                             productname = z.productname,
+                             nonyuritu = x.nonyuritu,
+                             parts = x.parts,
+                             repair = x.repair,
+                             remarks = x.remarks,
+                             cost = z.cost,
+                             price = z.price,
+                             importnonyuritu = z.importnonyuritu
+                         };
+
+
+
+                foreach(var list in querys)
                 {
-                    content += string.Format("{0},{1},{2},{3},{4},{5},{6}</br>",  list.customergroup,list.customertable.customergroupname,list.importcode,list.goodstable.importname,list.nonyuritu,list.parts,list.repair);
+                    content += string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}</br>",  list.customergroup,list.customergroupname,list.customercode,list.customername,list.importcode,list.importname,list.productcode,list.productname,list.nonyuritu,list.parts,list.repair,list.cost,list.price,list.remarks);
                 }
                 Label1.Text = content;
-            }
+            
 
         }
     }
