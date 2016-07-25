@@ -39,6 +39,9 @@
         [ForeignKey("customergroup")]
         public virtual customertable customertable { get; set; }
 
+        [ForeignKey("importcode")]
+        public virtual contracttable contracttable { get; set; }
+
     }
 
     public partial class tablejoin
@@ -48,6 +51,8 @@
         public customertable customertable { get; set; }
 
         public goodstable goodstable { get; set; }
+
+        public contracttable contracttable { get; set; }
 
         [StringLength(10)]
         public string customergroup { get; set; }
@@ -73,8 +78,22 @@
         [StringLength(60)]
         public string productname { get; set; }
 
+        //契約単価
+        public float? contractprice { get; set; }
+
+        //契約単価の上代
+        public float? price { get; set; }
+
+        [StringLength(10)]
+        public string revisiondate { get; set; }
+
+        //契約単価のデータより算出した納入率
         [StringLength(50)]
-        public string nonyuritu { get; set; }
+        public string nonyuritu1 { get; set; }
+
+        //markuptableにて定義されている納入率
+        [StringLength(50)]
+        public string nonyuritu2 { get; set; }
 
         [StringLength(50)]
         public string parts { get; set; }
@@ -87,7 +106,8 @@
 
         public float? cost { get; set; }
 
-        public float? price { get; set; }
+        //goodstableにて定義されている上代
+        public float? masterprice { get; set; }
 
         [StringLength(10)]
         public string importnonyuritu { get; set; }

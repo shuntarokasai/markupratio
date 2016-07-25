@@ -20,9 +20,9 @@ namespace 掛率確認システム
         [StringLength(30)]
         public string JAN { get; set; }
 
-        public float? cost { get; set; }
+        public int cost { get; set; }
 
-        public float? price { get; set; }
+        public int price { get; set; }
 
         [StringLength(30)]
         [Key]
@@ -35,6 +35,8 @@ namespace 掛率確認システム
         public string importnonyuritu { get; set; }
 
         public virtual ICollection<markuptable> markuptables { get; set; }
+
+        public virtual ICollection<contracttable> contracttables { get; set; }
 
     }
 }

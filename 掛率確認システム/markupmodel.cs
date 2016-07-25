@@ -15,6 +15,7 @@
         public virtual DbSet<customertable> customertables { get; set; }
         public virtual DbSet<goodstable> goodstables { get; set; }
         public virtual DbSet<markuptable> markuptables { get; set; }
+        public virtual DbSet<contracttable> contracttables { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

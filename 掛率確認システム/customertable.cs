@@ -38,5 +38,7 @@ namespace 掛率確認システム
         public string salesname { get; set; }
 
         public virtual ICollection<markuptable> markuptables { get; set; }
+
+        public virtual ICollection<contracttable> contracttables { get; set; }
     }
 }
