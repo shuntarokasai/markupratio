@@ -21,123 +21,61 @@ namespace 掛率確認システム
             //テキストボックスに何も値が入っていない場合に，すべてのデータを非表示にするプロパティ　初期状態
             GridView1.ShowHeaderWhenEmpty = true;
             errmsg.Visible = false;
-          
-            //必須入力を指定なかった場合にグリッドビューのデータ表示をすべて隠す
-            if ((string.IsNullOrEmpty(importsearch.Text) || string.IsNullOrEmpty(pcsearch.Text)) && string.IsNullOrEmpty(ccsearch.Text) && string.IsNullOrEmpty(cnsearch.Text))
-            {
 
-                errmsg.Visible = true;
-                errmsg.Text = "メーカーコードまたは商品コードと得意先コードは必須入力です";
 
-                for (int r = 0; r < GridView1.Rows.Count; r++)
-                {
-                    for (int c = 0; c < GridView1.Columns.Count; c++)
-                    {
-                        GridView1.Rows[r].Cells[c].Visible = false;
-                    }
-                }
-
-            }
+            //検索条件に何もヒットしなかった場合は，その旨のメッセージを表示する
+            if (string.IsNullOrEmpty(importsearch.Text) && string.IsNullOrEmpty(pcsearch.Text) && string.IsNullOrEmpty(ccsearch.Text) && string.IsNullOrEmpty(cnsearch.Text))
+            { }
             else
-
-            //必須入力を指定なかった場合にグリッドビューのデータ表示をすべて隠す
-            if ((string.IsNullOrEmpty(ccsearch.Text) || string.IsNullOrEmpty(cnsearch.Text)) && string.IsNullOrEmpty(importsearch.Text) && string.IsNullOrEmpty(pcsearch.Text))
             {
-
-                errmsg.Visible = true;
-                errmsg.Text = "メーカーコードまたは商品コードと得意先コードは必須入力です";
-
-                for (int r = 0; r < GridView1.Rows.Count; r++)
+                GridView1.DataBind();
+                if(GridView1.Rows.Count == 0)
                 {
-                    for (int c = 0; c < GridView1.Columns.Count; c++)
-                    {
-                        GridView1.Rows[r].Cells[c].Visible = false;
-                    }
+                    errmsg.Visible = true;
+                    errmsg.Text ="データがありませんでした";
                 }
             }
 
+                //string content = "";
+
+                //var context = new markupmodel();
+
+                //var querys = from x in context.markuptables
+                //             join y in context.customertables on x.customergroup equals y.customergroup
+                //             join z in context.goodstables on x.importcode equals z.importcode
+                //             where x.importcode == "004" && x.customergroup == "19710"
+                //             orderby x.customergroup
+                //             select new tablejoin()
+                //             {
+
+                //                 id = x.id,
+                //                 customergroup = x.customergroup,
+                //                 customergroupname = y.customergroupname,
+                //                 customercode = y.customercode,
+                //                 customername = y.customername,
+                //                 importcode = x.importcode,
+                //                 importname = z.importname,
+                //                 productcode = z.productcode,
+                //                 productname = z.productname,
+                //                 nonyuritu = x.nonyuritu,
+                //                 parts = x.parts,
+                //                 repair = x.repair,
+                //                 remarks = x.remarks,
+                //                 cost = z.cost,
+                //                 price = z.price,
+                //                 importnonyuritu = z.importnonyuritu
+                //             };
 
 
 
+                //    //foreach(var list in querys)
+                //    //{
+                //    //    content += string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}</br>",  list.customergroup,list.customergroupname,list.customercode,list.customername,list.importcode,list.importname,list.productcode,list.productname,list.nonyuritu,list.parts,list.repair,list.cost,list.price,list.remarks);
+                //    //}
+                //    //Label1.Text = content;
 
 
-
-
-            //else
-            ////メーカーコードが入力されている場合，得意先名orコードに限らずグリッドの表示を変更する
-            //if ((string.IsNullOrEmpty(pcsearch.Text)) && (string.IsNullOrEmpty(ccsearch.Text) || string.IsNullOrEmpty(cnsearch.Text)))
-            //{
-            //    errmsg.Visible = true;
-            //    errmsg.Text = "値が来ているよ";
-            //    GridView1.AllowPaging = false;
-            //    GridView1.DataBind();
-
-
-            //    for (int i = 4; i < 9; i++)
-            //    {
-            //        GridView1.Columns[i].Visible = false;
-            //    }
-
-            //    GridView1.AllowPaging = false;
-            //    GridView1.DataBind();
-
-            //    //先頭一行のみ表示する
-            //    for (int r = 1; r < GridView1.Rows.Count; r++)
-            //    {
-            //        for (int c = 0; c < GridView1.Columns.Count; c++)
-            //        {
-            //            GridView1.Rows[r].Cells[c].Visible = false;
-            //        }
-            //    }
-
-
-
-
-
-            //}
-
-
-
-            //string content = "";
-
-            //var context = new markupmodel();
-
-            //var querys = from x in context.markuptables
-            //             join y in context.customertables on x.customergroup equals y.customergroup
-            //             join z in context.goodstables on x.importcode equals z.importcode
-            //             where x.importcode == "004" && x.customergroup == "19710"
-            //             orderby x.customergroup
-            //             select new tablejoin()
-            //             {
-
-            //                 id = x.id,
-            //                 customergroup = x.customergroup,
-            //                 customergroupname = y.customergroupname,
-            //                 customercode = y.customercode,
-            //                 customername = y.customername,
-            //                 importcode = x.importcode,
-            //                 importname = z.importname,
-            //                 productcode = z.productcode,
-            //                 productname = z.productname,
-            //                 nonyuritu = x.nonyuritu,
-            //                 parts = x.parts,
-            //                 repair = x.repair,
-            //                 remarks = x.remarks,
-            //                 cost = z.cost,
-            //                 price = z.price,
-            //                 importnonyuritu = z.importnonyuritu
-            //             };
-
-
-
-            //    //foreach(var list in querys)
-            //    //{
-            //    //    content += string.Format("{0},{1},{2},{3},{4},{5},{6},{7},{8},{9},{10},{11},{12},{13}</br>",  list.customergroup,list.customergroupname,list.customercode,list.customername,list.importcode,list.importname,list.productcode,list.productname,list.nonyuritu,list.parts,list.repair,list.cost,list.price,list.remarks);
-            //    //}
-            //    //Label1.Text = content;
-
-
-        }
+            }
 
         // 戻り値の型は IEnumerable に変更できますが、// のページングと
         //並べ替えをサポートするには、次のパラメーターを追加する必要があります:
@@ -181,6 +119,10 @@ namespace 掛率確認システム
             if (string.IsNullOrEmpty(importsearch) && string.IsNullOrEmpty(ccsearch) && string.IsNullOrEmpty(cnsearch) && string.IsNullOrEmpty(pcsearch))
             {
                 errmsg.Visible = false;
+                
+                //初期状態において，データをすべて非表示にするため，あえて誤った抽出条件を記載しています
+                return querys.Where(x => x.importcode.Contains(pcsearch));
+
             }
             else
 
@@ -189,7 +131,9 @@ namespace 掛率確認システム
             {
                 errmsg.Visible = true;
                 errmsg.Text = "メーカーコードまたは商品コードと得意先コードは必須入力です";
-                return querys;
+
+                //データをすべて非表示にするため，あえて誤った抽出条件を記載しています
+                return querys.Where(x => x.importcode.Contains(pcsearch));
             }
             else
 
@@ -198,7 +142,8 @@ namespace 掛率確認システム
             {
                 errmsg.Visible = true;
                 errmsg.Text = "メーカーコードまたは商品コードと得意先コードは必須入力です";
-                return querys;
+                //データをすべて非表示にするため，あえて誤った抽出条件を記載しています
+                return querys.Where(x => x.customercode.Contains(cnsearch));
             }
             else
 
@@ -208,7 +153,7 @@ namespace 掛率確認システム
                 if (string.IsNullOrEmpty(cnsearch))
                 {
                     //得意先名が空欄
-                    return querys.Where(x => x.importcode.Contains(importsearch) && x.customercode.Contains(ccsearch));
+                    return querys.Where(x => x.importcode.Contains(importsearch) && x.customercode.Contains(ccsearch));  
                 }
                 else
                 {
@@ -267,35 +212,7 @@ namespace 掛率確認システム
                 return querys.Where(x => x.importcode.Contains(importsearch) && x.productcode.Contains(pcsearch) && x.customercode.Contains(ccsearch) && x.customername.Contains(cnsearch));
             }
 
-
-            //
-            return querys;
-
-
-
         }
 
-        // ID パラメーター名は、コントロールに設定されている DataKeyNames 値に一致する必要があります
-        public void GridView1_UpdateItem(int id)
-        {
-            掛率確認システム.tablejoin item = null;
-
-            var context = new markupmodel();
-
-            
-
-            if (item == null)
-            {
-                // 項目が見つかりませんでした
-                ModelState.AddModelError("", String.Format("ID {0} の項目が見つかりませんでした", id));
-                return;
-            }
-            TryUpdateModel(item);
-            if (ModelState.IsValid)
-            {
-                // ここに変更を保存します。例: MyDataLayer.SaveChanges();
-
-            }
-        }
     }
 }

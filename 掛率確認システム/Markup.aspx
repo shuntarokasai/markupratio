@@ -17,9 +17,9 @@
 
 
     <form id="form1" runat="server">
-        <div class="container" style="width:1800px;margin:10px auto;">
+        <div class="container" style="width:2000px;margin:10px auto;">
 
-            <div class="container" style="width:1800px; margin:10px auto; background-color:Highlight; border:solid;text-align:center;">
+            <div class="container" style="width:1800px; margin:10px auto; background-color:honeydew; border:solid;text-align:center;">
                 <br />
                 
 
@@ -41,24 +41,25 @@
             </div>
 
             
-            <asp:GridView ID="GridView1" runat="server" ItemType="掛率確認システム.tablejoin" SelectMethod="GridView1_GetData" UpdateMethod="GridView1_UpdateItem"  AllowPaging="True" PageSize="150" AllowSorting="True" CellPadding="10" AutoGenerateColumns="False" Width="1800px" ForeColor="#333333" GridLines="Both">
+            <asp:GridView ID="GridView1" runat="server" ItemType="掛率確認システム.tablejoin" SelectMethod="GridView1_GetData" AllowPaging="True" PageSize="150" AllowSorting="True" CellPadding="10" AutoGenerateColumns="False" Width="2000px" ForeColor="#333333" GridLines="Both" RowStyle-Wrap="true">
             <Columns>
 
 
-                <asp:BoundField DataField="customercode" HeaderText="得意先コード" SortExpression="customercode" />
-                <asp:BoundField DataField="customername" HeaderText="得意先名" SortExpression="customername" />
-                <asp:BoundField DataField="importcode" HeaderText="メーカーコード" SortExpression="importcode"/>
-                <asp:BoundField DataField="importname" HeaderText="メーカー名" SortExpression="importname" />
-                <asp:BoundField DataField="productcode" HeaderText="商品コード" SortExpression="productcode"  />
-                <asp:BoundField DataField="productname" HeaderText="商品名" SortExpression="productname" />
-                <asp:BoundField DataField="cost" HeaderText="NET" SortExpression="cost"  />
-                <asp:BoundField DataField="contractprice" HeaderText="契約単価" SortExpression="contractprice" />
-                <asp:BoundField DataField="price" HeaderText="得意先上代" SortExpression="price" />
-                <asp:BoundField DataField="masterprice" HeaderText="マスタ上代" SortExpression="price" />
-                <asp:BoundField DataField="nonyuritu1" HeaderText="得意先掛率" SortExpression="nonyuritu1" />
-                <asp:BoundField DataField="parts" HeaderText="部品" SortExpression="parts" />
-                <asp:BoundField DataField="repair" HeaderText="修理" SortExpression="repair" />
-                <asp:BoundField DataField="remarks" HeaderText="備考" SortExpression="remarks" />
+                <asp:BoundField DataField="customercode" HeaderText="得意先コード" SortExpression="customercode" ItemStyle-Width="150px" />
+                <asp:BoundField DataField="customername" HeaderText="得意先名" SortExpression="customername" ItemStyle-Width="250px" />
+                <asp:BoundField DataField="importcode" HeaderText="メーカーコード" SortExpression="importcode" ItemStyle-Width="200px"/>
+                <asp:BoundField DataField="importname" HeaderText="メーカー名" SortExpression="importname" ItemStyle-Width="200px" />
+                <asp:BoundField DataField="productcode" HeaderText="商品コード" SortExpression="productcode" ItemStyle-Width="100px"  />
+                <asp:BoundField DataField="productname" HeaderText="商品名" SortExpression="productname" ItemStyle-Width="500px" />
+                <asp:BoundField DataField="cost" HeaderText="NET" SortExpression="cost" ItemStyle-Width="25px"  />
+                <asp:BoundField DataField="contractprice" HeaderText="下代" SortExpression="contractprice" ItemStyle-Width="25px" />
+                <asp:BoundField DataField="price" HeaderText="上代" SortExpression="price" ItemStyle-Width="25px" />
+                <asp:BoundField DataField="masterprice" HeaderText="マスタ上代" SortExpression="price" ItemStyle-Width="25px" />
+                <asp:BoundField DataField="nonyuritu1" HeaderText="掛率" SortExpression="nonyuritu1" ItemStyle-Width="15px" />
+                <asp:BoundField DataField="parts" HeaderText="部品(%)" SortExpression="parts" ItemStyle-Width="25px" />
+                <asp:BoundField DataField="repair" HeaderText="修理(%)" SortExpression="repair" ItemStyle-Width="25px" />
+                <asp:BoundField DataField="remarks" HeaderText="備考" SortExpression="remarks" ItemStyle-Width="630px" />
+                <asp:BoundField DataField="revisiondate" HeaderText="最終単価改定日" SortExpression="remarks" ItemStyle-Width="100px" />
                 
 
             </Columns>
@@ -67,7 +68,7 @@
             <AlternatingRowStyle BackColor="White" />
             <EditRowStyle BackColor="#7C6F57" />
             <FooterStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
-            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" />
+            <HeaderStyle BackColor="#1C5E55" Font-Bold="True" ForeColor="White" Font-Size="Smaller" />
             <PagerStyle BackColor="#666666" ForeColor="White" HorizontalAlign="Center" />
             <RowStyle BackColor="#E3EAEB" />
             <SelectedRowStyle BackColor="#C5BBAF" Font-Bold="True" ForeColor="#333333" />

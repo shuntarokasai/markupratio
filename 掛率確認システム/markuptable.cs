@@ -19,9 +19,6 @@
         public string importcode { get; set; }
 
         [StringLength(50)]
-        public string importname { get; set; }
-
-        [StringLength(50)]
         public string nonyuritu { get; set; }
 
         [StringLength(50)]
