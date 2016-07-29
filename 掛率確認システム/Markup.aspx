@@ -9,6 +9,7 @@
 </head>
 <body style="background-image:url(http://www.keramogranit.info/wp-content/uploads/2016/05/light-wood-background-with-wood-background.jpg)">
     <h2>掛率確認システム(仮)</h2>
+    <h3><a href="Markup_setting.aspx">登録画面</a></h3>
 
     <div style="position:absolute;top:0;right:0;">
         ver1.0
