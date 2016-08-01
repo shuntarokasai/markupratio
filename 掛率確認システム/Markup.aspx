@@ -18,27 +18,51 @@
 
 
     <form id="form1" runat="server">
+        <div style="position:absolute;top:10px;right:0;">
+            <h3><asp:LinkButton ID="logout" runat="server" OnClick="logout_Click">ログアウト</asp:LinkButton></h3>
+
+        </div>
+        
+
+
+
         <div class="container" style="width:2000px;margin:10px auto;">
 
-            <div class="container" style="width:1800px; margin:10px auto; background-color:honeydew; border:solid;text-align:center;">
+            <%--日付の表示--%>
+            <div style="background-color:honeydew; border:solid 1px ; margin:10px auto; width:1800px; text-align:right;">
+
+                <%
+                    var dt = DateTime.Today;
+                    var yesterdaydt = dt.AddDays(-1);
+                    Response.Write("最終更新日：" +yesterdaydt.Month + "月" + yesterdaydt.Day + "日");
+                %>
+            </div>
+
+
+            <div class="container" style="width:1800px; margin:10px auto; background-color:honeydew; border:solid 1px;text-align:center;">
                 <br />
                 
 
                 <asp:Label ID="Label1" runat="server" Text="*メーカーコード："></asp:Label>
                 <asp:TextBox ID="importsearch" runat="server"></asp:TextBox>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="Label2" runat="server" Text="*得意先コード："></asp:Label>
                 <asp:TextBox ID="ccsearch" runat="server"></asp:TextBox>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="Label3" runat="server" Text="得意先名："></asp:Label>
                 <asp:TextBox ID="cnsearch" runat="server"></asp:TextBox>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Label ID="Label4" runat="server" Text="*商品コード："></asp:Label>
                 <asp:TextBox ID="pcsearch" runat="server"></asp:TextBox>
-
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:Button ID="Button1" runat="server" Text="検索" />
                 <br /><br />
                 <asp:Label ID="errmsg" runat="server" Visible="false" ForeColor="OrangeRed"></asp:Label>
+                <br />
+                <asp:Button ID="Button2" runat="server" Text="CSVダウンロード" OnClick="csvdownload" />
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button3" runat="server" Text="CSV全件出力" OnClick="csvdownload_all" />
+                <br /><br />
             </div>
 
             

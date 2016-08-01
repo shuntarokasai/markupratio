@@ -8,8 +8,10 @@ using System.Web.ModelBinding;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Data;
+using System.Data.Entity;
 using System.Windows;
-
+using System.Configuration;
+using System.Data.SqlClient;
 
 namespace 掛率確認システム
 {
@@ -17,6 +19,12 @@ namespace 掛率確認システム
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //クッキーの有効期限が切れていたらログインページに遷移する
+            if(Request.Cookies["Username"] == null)
+            {
+                Response.Redirect("~/login.aspx");
+            }
+
             
             //テキストボックスに何も値が入っていない場合に，すべてのデータを非表示にするプロパティ　初期状態
             GridView1.ShowHeaderWhenEmpty = true;
@@ -214,5 +222,153 @@ namespace 掛率確認システム
 
         }
 
+
+        //CSVダウンロード処理
+        protected void csvdownload(object sender, EventArgs e)
+        {
+            var dt = DateTime.Now;
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentEncoding = Encoding.GetEncoding("Shift-jis");
+            Response.AddHeader("content-disposition", "attachment;filename=掛率表" + dt.ToString("yyyyMMddHHmmss") + ".csv");
+            Response.ContentType = "application/text";
+            GridView1.AllowPaging = false;
+            GridView1.DataBind();
+
+            StringBuilder sbuilder = new StringBuilder();
+
+            for(int i =0; i < GridView1.Columns.Count; i++)
+            {
+                sbuilder.Append(GridView1.Columns[i].HeaderText + ",");
+
+            }
+            sbuilder.Append("\r\n");
+
+            for(int r=0; r < GridView1.Rows.Count; r++)
+            {
+                for(int c = 0; c < GridView1.Columns.Count; c++)
+                {
+                    if(GridView1.Rows[r].Cells[c].Text == "&nbsp;")
+                    {
+                        GridView1.Rows[r].Cells[c].Text = "";
+                    }
+                    sbuilder.Append(GridView1.Rows[r].Cells[c].Text + ",");
+                }
+                sbuilder.Append("\r\n");
+            }
+            Response.Output.Write(sbuilder.ToString());
+            Response.Flush();
+            Response.End();
+
+
+          
+        }
+
+
+        //sqlserverに格納されている各テーブルを結合し，selectにて取得し，csvダウンロードを行う
+        protected void csvdownload_all(object sender, EventArgs e)
+        {
+            DateTime dtime = DateTime.Now;
+
+            DataTable dt = new DataTable();
+
+            string conString = ConfigurationManager.ConnectionStrings["markupmodel"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                using (SqlCommand command = new SqlCommand("", con))
+                {
+                    //sqlDataAdapter:sqlcommandにて実行したSQL文をdatatableやdatasetに格納するプロパティ
+                    using (SqlDataAdapter adapter = new SqlDataAdapter())
+                    {
+                        con.Open();
+
+                        command.CommandTimeout = 300;
+                        command.CommandText = "SELECT customertable.customercode,customertable.customername,markuptable.importcode,goodstable.importname,contracttable.productcode,goodstable.productname,goodstable.cost,contracttable.contractprice,contracttable.price,goodstable.price,contracttable.nonyuritu,markuptable.parts,markuptable.repair,markuptable.remarks,contracttable.revisiondate FROM markuptable" +
+                                              " INNER JOIN goodstable" +
+                                              " ON markuptable.importcode = goodstable.importcode" +
+                                              " INNER JOIN customertable" +
+                                              " ON markuptable.customergroup = customertable.customergroup" +
+                                              " INNER JOIN contracttable" +
+                                              " ON customertable.customercode = contracttable.customercode and markuptable.importcode = contracttable.importcode and goodstable.productcode = contracttable.productcode";
+
+                        //commandtextにて取得した結果をadapterに格納する
+                        adapter.SelectCommand = command;
+
+                        //fillにて自動でopen,closeを行う・またdtにその値を格納している
+                        adapter.Fill(dt);
+
+                        con.Close();
+                    }
+                        
+
+                }
+            }
+
+            Response.Clear();
+            Response.Buffer = true;
+            Response.ContentEncoding = Encoding.GetEncoding("Shift-jis");
+            Response.AddHeader("content-disposition", "attachment;filename=掛率表all" + dtime.ToString("yyyyMMddHHmmss") + ".csv");
+            Response.ContentType = "application/text";
+
+            StringBuilder sbuilder = new StringBuilder();
+
+            dt.Columns[0].ColumnName = "得意先コード";
+            dt.Columns[1].ColumnName = "得意先名";
+            dt.Columns[2].ColumnName = "メーカーコード";
+            dt.Columns[3].ColumnName = "メーカー名";
+            dt.Columns[4].ColumnName = "商品コード";
+            dt.Columns[5].ColumnName = "商品名";
+            dt.Columns[6].ColumnName = "NET";
+            dt.Columns[7].ColumnName = "下代";
+            dt.Columns[8].ColumnName = "上代";
+            dt.Columns[9].ColumnName = "マスタ上代";
+            dt.Columns[10].ColumnName = "掛率";
+            dt.Columns[11].ColumnName = "部品(%)";
+            dt.Columns[12].ColumnName = "修理(%)";
+            dt.Columns[13].ColumnName = "備考";
+            dt.Columns[14].ColumnName = "最終単価改定日";
+
+
+            for (int i = 0; i < dt.Columns.Count; i++)
+            {
+                sbuilder.Append(dt.Columns[i] + ",");
+
+            }
+            sbuilder.Append("\r\n");
+
+            for (int r = 0; r < dt.Rows.Count; r++)
+            {
+                for (int c = 0; c < dt.Columns.Count; c++)
+                {
+                    if (dt.Rows[r][c].ToString() == "&nbsp;")
+                    {
+                        dt.Rows[r][c] = "";
+                    }
+                    sbuilder.Append(dt.Rows[r][c] + ",");
+                }
+                sbuilder.Append("\r\n");
+            }
+            Response.Output.Write(sbuilder.ToString());
+            Response.Flush();
+            Response.End();
+
+
+
+
+        }
+
+        //ログアウト処理
+        protected void logout_Click(object sender, EventArgs e)
+        {
+            if(Request.Cookies["UserName"] != null)
+            {
+                HttpCookie delcokkie = new HttpCookie("UserName");
+                delcokkie.Expires = DateTime.Now.AddDays(-1d);
+                Response.Cookies.Add(delcokkie);
+            }
+
+            Response.Redirect("~/login.aspx");
+        }
     }
 }

@@ -213,6 +213,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="login.aspx" />
     <Content Include="Markup.aspx" />
     <Content Include="Markup_setting.aspx" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
@@ -401,6 +402,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="goodstable.cs" />
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Markup.aspx.cs">
       <DependentUpon>Markup.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
