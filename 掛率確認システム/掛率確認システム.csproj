@@ -215,6 +215,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="login.aspx" />
     <Content Include="Markup.aspx" />
+    <Content Include="Markup_default.aspx" />
     <Content Include="Markup_setting.aspx" />
     <Content Include="Scripts\ai.0.22.9-build00167.js" />
     <Content Include="Scripts\ai.0.22.9-build00167.min.js" />
@@ -418,6 +419,13 @@
     </Compile>
     <Compile Include="markupmodel.cs" />
     <Compile Include="markuptable.cs" />
+    <Compile Include="Markup_default.aspx.cs">
+      <DependentUpon>Markup_default.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Markup_default.aspx.designer.cs">
+      <DependentUpon>Markup_default.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Markup_setting.aspx.cs">
       <DependentUpon>Markup_setting.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
